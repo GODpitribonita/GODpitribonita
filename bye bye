@@ -1,0 +1,57 @@
+Aquí tienes el código:
+ index.html
+html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF Aleatorio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>GIF Aleatorio</h1>
+        <img id="gif" src="" alt="GIF Aleatorio">
+        <button id="nuevoGif">Obtener GIF Nuevo</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+css
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+
+
+const gifElement = document.getElementById('gif');
+const nuevoGifButton = document.getElementById('nuevoGif');
+
+async function obtenerGifAleatorio() {
+    const respuesta = await fetch('https://api.giphy.com/v1/gifs/random?api_key=TU_API_KEY');
+    const data = await respuesta.json();
+    gifElement.src = data.data.images.original.url;
+}
+
+obtenerGifAleatorio();
+
+nuevoGifButton.addEventListener('click', obtenerGifAleatorio);
